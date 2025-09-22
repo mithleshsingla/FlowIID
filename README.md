@@ -28,10 +28,33 @@ In this project:
 
 ---
 
+## 🔧 Model Architecture Details
+
+### VAE Components
+- **Encoder**: 6 downsampling blocks processing 3×H×W input
+- **Decoder**: Generates shading from 8×H/8×W/8 latent representation
+- **Latent space**: 8 × 32 × 32 for 256×256 input images
+
+### Flow Matching Network
+- **UNet**: 2 downsampling + 2 upsampling blocks with skip connections
+- **Modified Residual Blocks (MRB)**: Integrated in both UNet and encoder
+- **Feature fusion**: Encoder features from last 3 blocks added to UNet
+- **Attention**: Selective attention layers for efficiency-accuracy balance
+
+### Training Strategy
+1. **Stage 1**: VAE + Discriminator training (290 epochs total)
+   - First 90 epochs: Reconstruction + KL + Perceptual loss
+   - Next 200 epochs: Add adversarial loss
+2. **Stage 2**: Flow Matching training (250 epochs)
+   - Batch size: 32
+   - Learning rate: 1×10⁻⁴
+
+---
+
 ## 📖 Method Overview
 
 ### 🔹 Variational Autoencoder (VAE)
-- Trained on **shading** images resized to **256×256×3**.  
+- Trained on **shading** images resized to **3×256×256**.  
 - Latent space: **8 × 32 × 32**.  
 - Loss function combines pixel-wise, perceptual, KL divergence, and adversarial terms.  
 
@@ -101,7 +124,7 @@ For subsequent 200 epochs:
 ### Comparison with Previous Methods
 
 <p align="center">
-  <img src="docs/collage.pdf" width="800"/>
+  <img src="docs/collage.png" width="800"/>
 </p>
 
 The collage shows comparison of our FlowIID with existing state-of-the-art methods, demonstrating superior albedo and shading decomposition quality.
@@ -169,43 +192,17 @@ The collage shows comparison of our FlowIID with existing state-of-the-art metho
 
 ## 📂 Repository Structure
 ```
-├── README.md                    # Project overview
-├── requirements.txt            # Python dependencies
-├── .gitattributes
-├── checkpoints/               # Saved model weights
-│   ├── epoch_290_best_autoencoder_model_checkpoint.pth
-│   └── result.pth
-├── config/                    # YAML configuration files
-│   ├── autoen_alb.yaml
-│   ├── fine.yaml
-│   └── unet_hyperism.yaml
-├── data_preprocessing/        # Data preprocessing utilities
-│   ├── calculate_shading.py
-│   ├── download.py
-│   ├── hdr_to_ldr_converter.py
-│   └── resize_image.py
-├── docs/                      # Documentation & figures
-│   ├── FlowIID.pdf
-│   ├── collage.pdf
-│   ├── flow_matching.png
-│   ├── model_architecture.png
-│   ├── input_images/         # Sample input images
-│   ├── albedo/               # Sample albedo results
-│   └── shading/              # Sample shading results
-├── eval/                      # Evaluation scripts
-│   ├── eval_arap.py
-│   ├── eval_mit.py
-│   └── mit_finetune.py
-├── inference.py              # Main inference script
-├── models/                   # Model architectures
-│   ├── discriminator.py
-│   ├── unet.py
-│   └── vae.py
-└── src/                      # Training scripts
-    ├── dataloader_image_hyperism.py
-    ├── dataloader_latent_hyperism.py
-    ├── train_unet.py
-    └── train_vae.py
+├── README.md
+├── requirements.txt
+├── checkpoints/        # Pretrained model weights
+├── config/             # YAML config files
+├── data_preprocessing/ # Scripts for dataset preprocessing
+├── docs/               # Figures, architecture, comparisons
+├── eval/               # Evaluation scripts
+├── models/             # VAE, UNet, Discriminator
+├── src/                # Training & inference scripts
+└── inference.py        # Run inference on input images
+
 ```
 
 ---
@@ -236,7 +233,7 @@ python src/train_unet.py --config config/unet_hyperism.yaml
 
 ### Inference
 ```bash
-python inference.py
+python inference.py --input_path /path/to/image.png --output_path /path/to/output
 ```
 
 ### Evaluation
@@ -244,29 +241,6 @@ python inference.py
 python eval/eval_arap.py
 python eval/eval_mit.py
 ```
-
----
-
-## 🔧 Model Architecture Details
-
-### VAE Components
-- **Encoder**: 6 downsampling blocks processing 3×H×W input
-- **Decoder**: Generates shading from 8×H/8×W/8 latent representation
-- **Latent space**: 8 × 32 × 32 for 256×256 input images
-
-### Flow Matching Network
-- **UNet**: 2 downsampling + 2 upsampling blocks with skip connections
-- **Modified Residual Blocks (MRB)**: Integrated in both UNet and encoder
-- **Feature fusion**: Encoder features from last 3 blocks added to UNet
-- **Attention**: Selective attention layers for efficiency-accuracy balance
-
-### Training Strategy
-1. **Stage 1**: VAE + Discriminator training (290 epochs total)
-   - First 90 epochs: Reconstruction + KL + Perceptual loss
-   - Next 200 epochs: Add adversarial loss
-2. **Stage 2**: Flow Matching training (250 epochs)
-   - Batch size: 32
-   - Learning rate: 1×10⁻⁴
 
 ---
 

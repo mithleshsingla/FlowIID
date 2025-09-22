@@ -214,7 +214,7 @@ The collage shows comparison of our FlowIID with existing state-of-the-art metho
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/FlowIID.git
+git clone https://github.com/mithleshsingla/FlowIID.git
 cd FlowIID
 pip install -r requirements.txt
 ```

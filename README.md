@@ -117,12 +117,11 @@ For subsequent 200 epochs:
 
 | Input | Albedo | Shading |
 |-------|--------|---------|
-| <img src="docs/input_images/_DSC4383.png" width="200"> | <img src="docs/albedo/_DSC4383.png" width="200"> | <img src="docs/shading/_DSC4383.png" width="200"> |
 | <img src="docs/input_images/frame_0000.png" width="200"> | <img src="docs/albedo/frame_0000.png" width="200"> | <img src="docs/shading/frame_0000.png" width="200"> |
 | <img src="docs/input_images/frame_0007.png" width="200"> | <img src="docs/albedo/frame_0007.png" width="200"> | <img src="docs/shading/frame_0007.png" width="200"> |
 | <img src="docs/input_images/frame_0008.png" width="200"> | <img src="docs/albedo/frame_0008.png" width="200"> | <img src="docs/shading/frame_0008.png" width="200"> |
 | <img src="docs/input_images/frame_0009.png" width="200"> | <img src="docs/albedo/frame_0009.png" width="200"> | <img src="docs/shading/frame_0009.png" width="200"> |
-
+| <img src="docs/input_images/_DSC4383.png" width="200"> | <img src="docs/albedo/_DSC4383.png" width="200"> | <img src="docs/shading/_DSC4383.png" width="200"> |
 ### Comparison with Previous Methods
 
 <p align="center">

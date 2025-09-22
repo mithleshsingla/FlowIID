@@ -1,9 +1,9 @@
 # FlowIID: Single-Step Intrinsic Image Decomposition via Latent Flow Matching
 
-This repository implements **FlowIID**, a novel approach for **Intrinsic Image Decomposition (IID)** that separates an input image into **albedo** (reflectance) and **shading** components using **Latent Flow Matching**. Unlike existing methods that require multiple inference steps or large parameter counts, FlowIID achieves competitive results in a **single forward pass** with only **52M parameters**.
+**FlowIID** is a novel approach for **Intrinsic Image Decomposition (IID)** that separates an input image into **Albedo** (reflectance) and **Shading** components using **Latent Flow Matching**. Unlike existing methods that require multiple inference steps or large parameter counts, FlowIID achieves competitive results in a **single forward pass** with only **52M parameters**.
 
 <p align="center">
-  <img src="docs/model_architecture.png" width="600"/>
+  <img src="docs/model_architecture.png" width="1200"/>
 </p>  
 
 ---
@@ -25,25 +25,6 @@ In this project:
 - Then we apply **Euler's** method on our model output **(velocity)** to get the latent representation.
 - We pass our latent representation through the decoder to get the output **Shading** image.
 - Then we divide our input image with the **Shading** image to get the **Albedo** component: **A = I / S**.
-
----
-
-## 🔹 Dataset Preprocessing
-
-1. **Download datasets** (Hypersim, InteriorVerse, MID)  
-   - Extract **albedo** and **HDR** images.  
-2. **Tonemap HDR → LDR** (without gamma correction).  
-3. **Normalize** to range [0, 1].  
-4. **Compute shading ground truth**:  
-   
-   ```math
-   \text{Shading} = \frac{\text{HDR}}{\text{Albedo}}
-   ```
-
-5. Final ground truth images:  
-   - Albedo  
-   - Shading  
-   - LDR input image  
 
 ---
 
@@ -103,18 +84,6 @@ For subsequent 200 epochs:
 \mathcal{L}_{\text{FM}} = \mathbb{E}_{t, x_t}\big[\,\|\,u_\theta(x_t, t) - v_t\,\|_2^2\big]
 ```
 
-Where the velocity field is computed using optimal transport:
-
-```math
-v_t = x_1 - (1 - \sigma_{\text{min}})x_0
-```
-
-And the conditional path is:
-
-```math
-x_t = \sqrt{1 - (1 - \sigma_{\text{min}})t} \cdot x_0 + t \cdot x_1
-```
-
 ---
 
 ## 📊 Results
@@ -140,19 +109,6 @@ The collage shows comparison of our FlowIID with existing state-of-the-art metho
 ---
 
 ### Quantitative Results
-
-#### MIT Intrinsic Dataset
-
-| Method | Albedo ||| Shading |||
-|--------|--------|--------|--------|--------|--------|--------|
-|| MSE↓ | LMSE↓ | DSSIM↓ | MSE↓ | LMSE↓ | DSSIM↓ |
-| CasQNet | 0.0091 | 0.0212 | 0.0730 | 0.0081 | 0.0192 | 0.0659 |
-| PAIDNet | 0.0038 | 0.0239 | 0.0368 | **0.0032** | 0.0267 | **0.0475** |
-| USI3D | 0.0156 | 0.0640 | 0.1158 | 0.0102 | 0.0474 | 0.1310 |
-| CGIntrinsics | 0.0167 | 0.0319 | 0.1287 | 0.0127 | 0.0211 | 0.1376 |
-| PIENet | **0.0028** | 0.0126 | **0.0340** | 0.0035 | 0.0203 | 0.0485 |
-| **FlowIID (Ours)** | 0.0040 | **0.0043** | 0.0435 | 0.0109 | **0.0119** | 0.0823 |
-
 #### ARAP Dataset - Albedo Results
 *Note: * implies model is finetuned on ARAP dataset*
 
@@ -178,6 +134,36 @@ The collage shows comparison of our FlowIID with existing state-of-the-art metho
 | Careaga and Aksoy | 0.026 | 0.168 | 0.680 |
 | PIENet | 0.037 | 0.170 | 0.718 |
 | **FlowIID (Ours)** | **0.022** | **0.132** | 0.744 |
+
+#### MIT Intrinsic Dataset
+
+| Method | Albedo ||| Shading |||
+|--------|--------|--------|--------|--------|--------|--------|
+|| MSE↓ | LMSE↓ | DSSIM↓ | MSE↓ | LMSE↓ | DSSIM↓ |
+| CasQNet | 0.0091 | 0.0212 | 0.0730 | 0.0081 | 0.0192 | 0.0659 |
+| PAIDNet | 0.0038 | 0.0239 | 0.0368 | **0.0032** | 0.0267 | **0.0475** |
+| USI3D | 0.0156 | 0.0640 | 0.1158 | 0.0102 | 0.0474 | 0.1310 |
+| CGIntrinsics | 0.0167 | 0.0319 | 0.1287 | 0.0127 | 0.0211 | 0.1376 |
+| PIENet | **0.0028** | 0.0126 | **0.0340** | 0.0035 | 0.0203 | 0.0485 |
+| **FlowIID (Ours)** | 0.0040 | **0.0043** | 0.0435 | 0.0109 | **0.0119** | 0.0823 |
+---
+
+## 🔹 Dataset Preprocessing
+
+1. **Download datasets** (Hypersim, InteriorVerse, MID)  
+   - Extract **albedo** and **HDR** images.  
+2. **Tonemap HDR → LDR** (without gamma correction).  
+3. **Normalize** to range [0, 1].  
+4. **Compute shading ground truth**:  
+   
+   ```math
+   \text{Shading} = \frac{\text{HDR}}{\text{Albedo}}
+   ```
+
+5. Final ground truth images:  
+   - Albedo  
+   - Shading  
+   - LDR input image  
 
 ---
 
@@ -261,16 +247,6 @@ python eval/eval_mit.py
 
 ---
 
-## 📌 Key Features
-
-- **Single-step inference**: Results in just one forward pass
-- **Parameter efficient**: Only **52M parameters** vs. hundreds of millions in competing methods
-- **Fast training**: Deterministic training compared to stochastic diffusion methods
-- **Strong performance**: Competitive or superior results on MIT Intrinsic and ARAP benchmarks
-- **Practical deployment**: Suitable for real-time and resource-constrained applications
-
----
-
 ## 🔧 Model Architecture Details
 
 ### VAE Components
@@ -294,35 +270,12 @@ python eval/eval_mit.py
 
 ---
 
-## 📖 Citation
+## 📌 Key Features
 
-If you find this work useful in your research, please cite:
-
-```bibtex
-@article{singla2024flowiid,
-  title={FlowIID: Single-Step Intrinsic Image Decomposition via Latent Flow Matching},
-  author={Singla, Mithlesh and Kumari, Seema and Raman, Shanmuganathan},
-  journal={Submitted to ICASSP 2025},
-  year={2024}
-}
-```
+- **Single-step inference**: Results in just one forward pass
+- **Parameter efficient**: Only **52M parameters** vs. hundreds of millions in competing methods
+- **Fast training**: Deterministic training compared to stochastic diffusion methods
+- **Strong performance**: Competitive or superior results on MIT Intrinsic and ARAP benchmarks
+- **Practical deployment**: Suitable for real-time and resource-constrained applications
 
 ---
-
-## 🤝 Contributing
-
-We welcome contributions! Please feel free to submit issues, feature requests, or pull requests.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- Thanks to the creators of Hypersim, InteriorVerse, and MID datasets
-- Special acknowledgment to the flow matching and diffusion model communities
-- Built upon PyTorch and other open-source libraries

@@ -1,0 +1,49 @@
+dataset_params_shading:
+  im_path: '/home/project/dataset/Hyperism/hyperism_ldr_shading_ground_truth_256'
+  im_channels : 1
+  im_size : 256
+  name: 'ldr_to_sh'
+
+dataset_params:
+  im_path: '/home/project/dataset/Hyperism/hyperism_ldr_albedo_ground_truth_256'
+  im_channels : 3
+  im_size : 256
+  name: 'ldr_to_sh'
+
+dataset_params_input:
+  im_path: '/home/project/dataset/Hyperism/sh_al_hyperism_ldr_dequantize_linearize_256'
+  im_channels :  3
+  im_size : 256
+  name: 'ldr_to_sh'
+
+autoencoder_params:
+  z_channels: 8
+
+train_params:
+  im_size_lt : 32
+  seed : 107
+  task_name: 'ldr_to_sh'
+  ldm_batch_size: 32
+  autoencoder_batch_size: 32
+  disc_start: 57600000
+  disc_weight: 1
+  perceptual_weight: 200
+  kl_weight: 0.0001
+  gradient_weight: 0
+  ldm_epochs : 1000
+  autoencoder_epochs : 2000
+  num_samples : 25
+  ldm_lr: 0.00001
+  albedo_weight : 3
+  sh_weight : 200
+  autoencoder_lr: 0.0001
+  discriminator_lr: 0.000005
+  autoencoder_acc_steps : 1
+  autoencoder_img_save_steps : 6080
+  save_latents : False
+  vae_latent_dir_name : 'latent_output\latent_vectors.h5'
+  ldm_ckpt_name: 'flow_model_ckpt.pth'
+  vae_autoencoder_ckpt_name: 'epoch_290_best_autoencoder_model_checkpoint.pth'
+  vae_discriminator_ckpt_name: 'vae_discriminator_ckpt.pth'  
+  encoder_ckpt_name: 'encoder_ckpt.pth'  
+  ldm_optimizer_ckpt_name: 'ldm_optimizer_ckpt.pth'  

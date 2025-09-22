@@ -1,5 +1,7 @@
 # FlowIID: Single-Step Intrinsic Image Decomposition via Latent Flow Matching
 
+📄 **[Read the Paper](docs/FlowIID.pdf)**
+
 **FlowIID** is a novel approach for **Intrinsic Image Decomposition (IID)** that separates an input image into **Albedo** (reflectance) and **Shading** components using **Latent Flow Matching**. Unlike existing methods that require multiple inference steps or large parameter counts, FlowIID achieves competitive results in a **single forward pass** with only **52M parameters**.
 
 <p align="center">

@@ -176,18 +176,6 @@ For subsequent 200 epochs:
 
 The flow matching network is based on **UNet + encoder features** and trained on latent representation of size **8 × 32 × 32**. The ODE is solved using **Euler method** with just **1** timestep.
 
-### 🔄 **Data Preprocessing**
-
-**Shading Ground Truth Computation:**
-```math
-\text{Shading} = \frac{\text{HDR}}{\text{Albedo}}
-```
-
-**Final Albedo Recovery:**
-```math
-\text{Albedo} = \frac{\text{Input Image}}{\text{Shading}}
-```
-
 ---
 
 ## 🎨 **Stunning Results Gallery**

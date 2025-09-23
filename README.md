@@ -7,10 +7,12 @@
 <p align="center">
   <img src="docs/model_architecture.png" width="1200"/>
 </p>  
----
-## 🌐 Live Demo
 
-Try our model directly in your browser! The model is deployed on **Hugging Face Spaces** with an interactive Gradio interface.
+---
+
+## 🚀 Try FlowIID Live!
+
+Decompose images into **Albedo** and **Shading** with our state-of-the-art FlowIID model. Run it **directly in your browser**!
 
 ### 🔗 **[Launch Demo](https://huggingface.co/spaces/Mithleshsingla/FlowIID)**
 

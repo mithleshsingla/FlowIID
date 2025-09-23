@@ -8,15 +8,6 @@
 
 **FlowIID** is a novel approach for **Intrinsic Image Decomposition (IID)** that separates an input image into **Albedo** (reflectance) and **Shading** components using **Latent Flow Matching**. Unlike existing methods that require multiple inference steps or large parameter counts, FlowIID achieves competitive results in a **single forward pass** with only **52M parameters**.
 
-<!-- Hero Animation -->
-```
-┌─────────────────────────────────────────────────────────┐
-│  🖼️ Input Image  →  🎨 Albedo + 🌗 Shading  │
-│                                                         │
-│  ⚡ Single Forward Pass • 🔥 52M Parameters Only       │
-│  🏆 State-of-the-Art Results • 🚀 Real-Time Ready     │
-└─────────────────────────────────────────────────────────┘
-```
 
 </div>
 
@@ -391,6 +382,5 @@ Feel free to open issues or submit pull requests!
 [![Get Started](https://img.shields.io/badge/🚀_Get_Started-Clone_Now-success?style=for-the-badge)](https://github.com/mithleshsingla/FlowIID)
 [![Try Demo](https://img.shields.io/badge/🌐_Try_Demo-No_Setup-orange?style=for-the-badge)](https://huggingface.co/spaces/Mithleshsingla/FlowIID)
 
-*Made with ❤️ by the FlowIID team*
 
 </div>

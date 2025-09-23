@@ -7,6 +7,18 @@
 <p align="center">
   <img src="docs/model_architecture.png" width="1200"/>
 </p>  
+---
+## 🌐 Live Demo
+
+Try our model directly in your browser! The model is deployed on **Hugging Face Spaces** with an interactive Gradio interface.
+
+### 🔗 **[Launch Demo](https://huggingface.co/spaces/Mithleshsingla/FlowIID)**
+
+<div align="center">
+  
+[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-lg.svg)](https://huggingface.co/spaces/Mithleshsingla/FlowIID)
+
+</div>
 
 ---
 

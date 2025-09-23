@@ -12,7 +12,7 @@
 </div>
 
 <p align="center">
-  <img src="docs/model_architecture.png" width="1200"/>
+  <img src="docs/model_architecture.png" width="1400"/>
 </p>
 
 ---

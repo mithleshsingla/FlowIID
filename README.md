@@ -351,17 +351,6 @@ FlowIID/
 
 </div>
 
----
-
-## 🤝 **Contributing**
-
-We welcome contributions! Whether it's:
-- 🐛 Bug fixes
-- ✨ New features  
-- 📖 Documentation improvements
-- 🧪 Experimental extensions
-
-Feel free to open issues or submit pull requests!
 
 ---
 
